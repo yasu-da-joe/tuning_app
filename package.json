@@ -25,7 +25,9 @@
     "watch:css": "nodemon --watch ./app/assets/stylesheets/ --ext scss --exec \"yarn build:css\""
   },
   "browserslist": [
-    "defaults"
+    "> 1%",
+    "last 2 versions",
+    "not dead"
   ],
   "devDependencies": {
     "webpack-dev-server": "^3"
