@@ -15,22 +15,25 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   web:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && NODE_OPTIONS=--openssl-legacy-provider bundle exec rails s -b '0.0.0.0'"
     volumes:
       - ".:/myapp"
       - bundle_data:/usr/local/bundle:cached
       - node_modules:/myapp/node_modules
     environment:
       TZ: Asia/Tokyo
+      NODE_OPTIONS: --openssl-legacy-provider
     ports:
       - "3000:3000"
     depends_on:
       db:
         condition: service_healthy
+
 volumes:
   bundle_data:
   postgresql_data:
