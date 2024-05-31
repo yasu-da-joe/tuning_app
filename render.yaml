@@ -7,6 +7,6 @@ services:
     startCommand: bundle exec rails server -b 0.0.0.0
     envVars:
       - key: SECRET_KEY_BASE
-        value: e4b7d3c9a0f96a8f
+        value: 1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p
       - key: DEVISE_SECRET_KEY
-        value: e4b7d3c9a0f96a8f
+        value: 1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p
