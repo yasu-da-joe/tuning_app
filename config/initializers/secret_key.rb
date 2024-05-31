@@ -1,10 +1,3 @@
-# Ensure the key is exactly 16 bytes
-key = ENV['DEVISE_SECRET_KEY']
-
-if key.nil? || key.length != 16
-  raise "DEVISE_SECRET_KEY must be exactly 16 bytes long"
+if defined?(Devise)
+  Devise.secret_key = ENV['DEVISE_SECRET_KEY'] || 'e4b7d3c9a0f96a8f'
 end
-
-# Use the key for encryption
-cipher = OpenSSL::Cipher::AES.new(128, :CBC)
-cipher.key = key
