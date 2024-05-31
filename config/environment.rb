@@ -6,7 +6,7 @@ Rails.application.initialize!
 
 require 'openssl'
 
-key = ENV['DEVISE_SECRET_KEY']
+key = ENV['e4b7d3c9a0f96a8f']
 
 # Ensure the key is exactly 16 bytes
 if key.nil? || key.length != 16
