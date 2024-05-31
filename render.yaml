@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: my-ruby-app
+    env: ruby
+    plan: starter
+    buildCommand: bundle install && yarn install && bundle exec rails assets:precompile
+    startCommand: bundle exec rails server -b 0.0.0.0
+    envVars:
+      - key: SECRET_KEY_BASE
+        value: e4b7d3c9a0f96a8f
+      - key: DEVISE_SECRET_KEY
+        value: e4b7d3c9a0f96a8f
