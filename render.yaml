@@ -1,12 +1,10 @@
 services:
   - type: web
-    name: my-ruby-app
-    env: ruby
-    plan: starter
+    name: your-app-name
+    env: docker
+    dockerfilePath: Dockerfile
     buildCommand: bundle install && yarn install && bundle exec rails assets:precompile
     startCommand: bundle exec rails server -b 0.0.0.0
     envVars:
-      - key: SECRET_KEY_BASE
-        value: 1a2b3c4d5e6f7g8h
-      - key: DEVISE_SECRET_KEY
-        value: 1a2b3c4d5e6f7g8h
+      - key: DATABASE_URL
+        value: postgres://tuning_app_user:zrpXotYxFNsTE35pIlMBsi5SCstxpQ4B@dpg-cpck5pm3e1ms73evb8gg-a/tuning_app

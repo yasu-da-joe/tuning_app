@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.3.1
+ARG RUBY_VERSION=3.2.3
 FROM ruby:$RUBY_VERSION-slim as base
 
 # Rails app lives here
@@ -11,7 +11,7 @@ WORKDIR /rails
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+    BUNDLE_WITHOUT="development test"
 
 # Install dependencies
 RUN apt-get update -qq && \
@@ -39,6 +39,7 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
 COPY Gemfile Gemfile.lock ./
 
 # Install application gems
+RUN gem install bundler -v 2.5.11
 RUN bundle install --without development test && \
     rm -rf ${BUNDLE_PATH}/ruby/*/cache && \
     bundle exec bootsnap precompile --gemfile
@@ -59,6 +60,7 @@ ENV SECRET_KEY_BASE_DUMMY=1
 ENV DEVISE_SECRET_KEY=1a2b3c4d5e6f7g8h
 
 RUN ./bin/rails assets:precompile
+
 # Final stage for app image
 FROM base
 
@@ -81,4 +83,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["./bin/rails", "server"]
+CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
